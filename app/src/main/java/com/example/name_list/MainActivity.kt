@@ -14,9 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,68 +31,59 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Name_ListTheme {
-                var name by remember{
-                    mutableStateOf("")
-                }
-                var names by remember{
-                    mutableStateOf(listOf<String>())
-                }
-                //body parent
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                ) {
-                    //child row
-                    Row (
-                        modifier =  Modifier
-                            .fillMaxWidth()
-                    ){
-                        OutlinedTextField(
-                            value = name,
-                            onValueChange = {
-                                text -> name = text
-                            },
-                            modifier = Modifier.weight(1f))
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Button(onClick = {
-                            if (name.isNotBlank()){
-                                names = names +name
-                                name = ""
-                            }
-                        }) {
-                            Text(text = "Add")
-                        }
-                    }
-                    //child column
-                    LazyColumn{
-                        items(names){currentName->
-                            Text(
-                                text = currentName,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp))
-                            Divider()
-                        }
-                    }
-                }
+                MainScreen()
             }
         }
     }
 }
 
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    Name_ListTheme {
-//        Greeting("Android")
-//    }
-//}
+
+@Preview
+@Composable
+fun MainScreen(){
+    var name by remember{
+        mutableStateOf("")
+    }
+    var names by remember{
+        mutableStateOf(listOf<String>())
+    }
+    //body parent
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        //child row
+        Row (
+            modifier =  Modifier
+                .fillMaxWidth()
+        ){
+            OutlinedTextField(
+                value = name,
+                onValueChange = {
+                        text -> name = text
+                },
+                modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = {
+                if (name.isNotBlank()){
+                    names = names +name
+                    name = ""
+                }
+            }) {
+                Text(text = "Add")
+            }
+        }
+        //child column
+        LazyColumn{
+            items(names){currentName->
+                Text(
+                    text = currentName,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp))
+                Divider()
+            }
+        }
+    }
+}
